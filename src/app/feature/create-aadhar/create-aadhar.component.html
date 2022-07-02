@@ -1,0 +1,151 @@
+
+    <div>
+        <button  class="btn btn-primary" (click)="logout()" style="float: right;">Logout</button>
+        </div>
+
+
+
+
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      
+      <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+        <form [formGroup]="aadharForm" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col text-center">
+            <h3>Enter Adhar Details</h3>
+          </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+              <app-custom-validator [validations]="{required:'first name is required',pattern:'Only alphabets allowed',maxlength:'Maximum 15 characters allowed'}">
+                <input type="text" class="form-control"  placeholder="First Name" appErrorStateMatcher [submitted]='submitted' formControlName='firstName'>
+              </app-custom-validator>
+
+            </div>
+            <div class="col">
+              <app-custom-validator [validations]="{required:'last name is required',pattern:'Only alphabets allowed',maxlength:'Maximum 15 characters allowed'}">
+              <input type="text" class="form-control" placeholder="Last Name" appErrorStateMatcher [submitted]='submitted' formControlName='lastName'
+              >
+              </app-custom-validator>
+            </div>
+          </div>
+
+          <div class="row align-items-center mt-3">
+            <app-custom-validator [validations]="{required:'phone is required',minlength:'enter valid phone'}">
+            <input type="text" appOnlyNumber maxlength="10"  class="form-control" placeholder="phone number" appErrorStateMatcher [submitted]='submitted' formControlName='phone'>
+            </app-custom-validator>
+          </div>
+
+          <div class="row align-items-center mt-3">
+            <div class="col">
+              <app-custom-validator [validations]="{required:'address is required',minlength:'Minimum 8 characters allowed',maxlength:'Maximum 16 characters allowed'}">
+              <input type="text" class="form-control" placeholder="Address Line 1" appErrorStateMatcher [submitted]='submitted' formControlName='address1'>
+              </app-custom-validator>
+            </div>
+          </div>
+
+          <div class="row align-items-center mt-3">
+            <div class="col">
+              <app-custom-validator [validations]="{required:'address is required',minlength:'Minimum 8 characters allowed',maxlength:'Maximum 16 characters allowed'}">
+              <input type="text" class="form-control" placeholder="Address Line 2" appErrorStateMatcher [submitted]='submitted' formControlName='address2'>
+              </app-custom-validator>
+            </div>
+          </div>
+
+          <div class="row align-items-center mt-3">
+            <div class="col">
+              <app-custom-validator [validations]="{required:'city is required'}">
+              <input type="text" class="form-control" placeholder="city" appErrorStateMatcher [submitted]='submitted' formControlName='city'>
+              </app-custom-validator>
+            </div>
+            <div class="col">
+              <app-custom-validator [validations]="{required:'pincode is required'}">
+              <input type="text" appOnlyNumber maxlength="8"  class="form-control" placeholder="pincode" appErrorStateMatcher [submitted]='submitted' formControlName='pincode'>
+              </app-custom-validator>
+            </div>
+          </div>
+
+
+
+        <div class="row align-items-center mt-3">
+          <div class="col">
+            <app-custom-validator [validations]="{required:'email is required',email:'Enter valid email'}">
+            <input type="text" class="form-control" placeholder="Email" appErrorStateMatcher [submitted]='submitted' formControlName='email'>
+            </app-custom-validator>
+
+          </div>
+        </div>
+        <div class="row align-items-center mt-3">
+          <div class="col">
+            <app-custom-validator [validations]="{required:'password is required'}">
+            <input type="password" class="form-control" placeholder="Password" appErrorStateMatcher [submitted]='submitted' formControlName='password'>
+            </app-custom-validator>
+          </div>
+          <div class="col">
+            <app-custom-validator [validations]="{required:'confirm password is required'}">
+            <input type="password" class="form-control" placeholder="Confirm Password" appErrorStateMatcher [submitted]='submitted' formControlName='cpassword'>
+            </app-custom-validator>
+          </div>
+        </div>
+        <div class="col">
+          <div *ngIf="aadharForm && aadharForm?.value?.password?.length > 0 && !aadharForm.valid" class="row">
+
+            <div class="col-md-6">
+                <small [ngClass]="(!aadharForm.get('password').hasError('isLowercasePresent'))?'text-success':'text-danger'" >Atleast one Lowercase required</small>
+            </div>
+            
+            <div class="col-md-6">
+                <small [ngClass]="(!aadharForm.get('password').hasError('isUppercasePresent'))?'text-success':'text-danger'" >Atleast one Uppercase required</small>
+            </div>
+
+            <div class="col-md-6">
+                <small [ngClass]="(!aadharForm.get('password').hasError('isSpecialCharacterPresent'))?'text-success':'text-danger'" >Atleast one special character  required</small>
+            </div>
+
+            <div class="col-md-6">
+                <small [ngClass]="(!aadharForm.get('password').hasError('isWhitespacePresent'))?'text-success':'text-danger'" >Spaces not allowed</small>
+            </div>
+
+            <div class="col-md-6">
+                <small [ngClass]="(!aadharForm.get('password').hasError('isNumberPresent'))?'text-success':'text-danger'" >Atleast one number required</small>
+            </div>
+
+            <div class="col-md-6">
+                <small [ngClass]="(aadharForm?.value?.password?.length >= 8 && aadharForm?.value?.password?.length <= 16 )?'text-success':'text-danger'" >Must be 8-16 chracters</small>
+            </div>
+
+        </div> 
+        <div *ngIf="aadharForm &&  aadharForm?.value?.cpassword?.length > 0 && aadharForm?.value?.cpassword !== aadharForm?.value?.password && submitted">
+          <small class="text-danger">Password doesn't match</small>
+      </div>
+        </div>
+        <div class="row justify-content-start mt-3">
+          <!-- <div class="col">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                I Read and Accept <a href="https://www.froala.com">Terms and Conditions</a>
+              </label>
+            </div>
+          </div> -->
+
+            <div class="row col-12 mt-4">
+                
+                <div class="col-6">
+                    <!-- <div class="text-left">
+                        <div  [routerLink]="'/main/login'">Have an account? Sign in!</div>
+                    </div> -->
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary float-right">Submit
+                      <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                    </button>
+                </div>
+          </div>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>

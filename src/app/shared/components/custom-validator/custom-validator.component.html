@@ -1,0 +1,5 @@
+
+<ng-content></ng-content>
+<ng-container *ngIf='isError'>
+  <span class="error-text" *ngFor="let msg of errorMessages"> {{msg}}</span>
+</ng-container>
